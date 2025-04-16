@@ -1,8 +1,14 @@
-# Verbose Lean 4
+# Verbose Lean 4 (em português)
 
-This project provides tactics and commands for
-[Lean](https://leanprover-community.github.io/) in a very controlled
-natural language. The original version of those tactics were written in
+Esse projeto é uma tradução (quase que direta) do verbose-lean original, um projeto que provê ˋtacticsˋ e ˋcommandsˋ para o
+[Lean](https://leanprover-community.github.io/) em uma linguagem natural controlada.
+
+Vou tentar adicionar uma tabelinha com os ˋto doˋs, ˋdoingˋs e ˋdonesˋs. Por enquanto, fica aí um ótimo exemplo
+de to do: terminar esse README
+
+----
+
+The original version of those tactics were written in
 French for teaching purposes at 
 [Université Paris-Saclay](https://www.universite-paris-saclay.fr/) in
 Orsay using Lean 3. The goal is not to make Lean code easier to write, the goal is to
