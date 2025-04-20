@@ -6,6 +6,7 @@ Esse projeto é uma tradução (quase que direta) do [verbose-lean](https://gith
 ## To do
 
 | **Traduzir as táticas** | 4/17 |
+| ----------------------- | ---- |
 | All.lean              | Ok |
 | Assume.lean           | Ok |
 | By.lean               |  |
