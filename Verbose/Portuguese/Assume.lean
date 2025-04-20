@@ -1,4 +1,4 @@
-import Verbose.English.Fix
+import Verbose.Portuguese.Fix
 
 open Lean Elab Tactic
 
@@ -38,7 +38,7 @@ example (n : Nat) : 0 < n → True := by
   trivial
 
 example : ∀ n > 0, true := by
-  success_if_fail_with_msg "There is no assumption to introduce here."
+  success_if_fail_with_msg "Não há hipótese para introduzir."
     Assuma n
   intro n
   Assuma H : n > 0
@@ -58,7 +58,7 @@ example (P Q : Prop) (h : ¬ Q → ¬ P) : P → Q := by
 
 example : 0 ≠ 1 := by
   success_if_fail_with_msg
-    "The goal is a negation, there is no point in proving it by contradiction. You can directly assume 0 = 1."
+    "O alvo é uma negação. Não tem porquê demonstrá-lo por contradição. Você pode assumir 0 = 1."
     Assuma, para chegar em uma contradição, h : 0 = 1
   norm_num
 

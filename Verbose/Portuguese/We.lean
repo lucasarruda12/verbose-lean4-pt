@@ -1,5 +1,5 @@
 import Verbose.Tactics.We
-import Verbose.English.Common
+import Verbose.Portuguese.Common
 
 open Lean Elab Parser Tactic Verbose.English
 
@@ -8,65 +8,65 @@ syntax colGt " which becomes " term : becomesEN
 
 def extractBecomes (e : Lean.TSyntax `becomesEN) : Lean.Term := ⟨e.raw[1]!⟩
 
-elab rw:"We" " rewrite using " s:myRwRuleSeq l:(location)? new:(becomesEN)? : tactic => do
+elab rw:"Podemos" " reescrever usando " s:myRwRuleSeq l:(location)? new:(becomesEN)? : tactic => do
   rewriteTac rw s (l.map expandLocation) (new.map extractBecomes)
 
-elab rw:"We" " rewrite using " s:myRwRuleSeq " everywhere" : tactic => do
+elab rw:"Podemos" " reescrever usando " s:myRwRuleSeq " em todo canto" : tactic => do
   rewriteTac rw s (some Location.wildcard) none
 
-elab "We" " proceed using " exp:term : tactic =>
+elab "Podemos" " proceder usando " exp:term : tactic =>
   discussOr exp
 
-elab "We" " proceed depending on " exp:term : tactic =>
+elab "Podemos" " proceder dependendo de " exp:term : tactic =>
   discussEm exp
 
 implement_endpoint (lang := en) cannotConclude : CoreM String :=
-pure "This does not conclude."
+pure "Isso não conclui."
 
-elab "We" " conclude by " e:maybeApplied : tactic => do
+elab "Podemos" " concluir por " e:maybeApplied : tactic => do
   concludeTac (← maybeAppliedToTerm e)
 
-elab "We" " combine " prfs:sepBy(term, " and ") : tactic => do
+elab "Podemos" " combinar " prfs:sepBy(term, " e ") : tactic => do
   combineTac prfs.getElems
 
 implement_endpoint (lang := en) computeFailed (goal : MessageData) : TacticM MessageData :=
   pure m!"The goal {goal} does not seem to follow from a computation without using a local assumption."
 
-elab "We" " compute" loc:(location)? : tactic => do
+elab "Podemos" " computar" loc:(location)? : tactic => do
   computeTac loc
 
-elab "We" " apply " exp:term : tactic => do
+elab "Podemos" " aplicar " exp:term : tactic => do
   evalApply (← `(tactic|apply $exp))
 
 -- elab "We" " apply " exp:term " at " h:ident: tactic => do
 --   let loc ← ident_to_location h
 --   evalTactic (← `(tactic|apply_fun $exp $loc:location))
 
-elab "We" " apply " exp:term " to " e:term : tactic => do
+elab "Podemos" " aplicar " exp:term " em " e:term : tactic => do
   evalTactic (← `(tactic|specialize $exp $e))
 
-macro "We" " forget " args:(ppSpace colGt term:max)+ : tactic => `(tactic|clear $args*)
+macro "Poemos" " esquecer " args:(ppSpace colGt term:max)+ : tactic => `(tactic|clear $args*)
 
-macro "We" " reformulate " h:ident " as " new:term : tactic => `(tactic|change $new at $h:ident)
+macro "Podemos" " reformular " h:ident " como " new:term : tactic => `(tactic|change $new at $h:ident)
 
 implement_endpoint (lang := en) renameResultSeveralLoc : CoreM String :=
 pure "One can specify the renaming result only when renaming at a single location."
 
-elab "We" " rename" old:ident " to " new:ident loc?:(location)? become?:(becomesEN)? : tactic => do
+elab "Podemos" " renomar" old:ident " como " new:ident loc?:(location)? become?:(becomesEN)? : tactic => do
   renameTac old new loc? (become?.map extractBecomes)
 
 implement_endpoint (lang := en) unfoldResultSeveralLoc : CoreM String :=
 pure "One can specify the unfolding result only when unfolding at a single location."
 
-elab "We" " unfold " tgt:ident loc?:(location)? new:(becomesEN)? : tactic => do
+elab "Podemos" " abrir a definição de " tgt:ident loc?:(location)? new:(becomesEN)? : tactic => do
   let new? := (new.map extractBecomes)
   unfoldTac tgt loc? new?
 
-elab "We" " contrapose" : tactic => contraposeTac true
+elab "Podemos" " contrapor" : tactic => contraposeTac true
 
-elab "We" " contrapose" " simply": tactic => contraposeTac false
+elab "Podemos" " contrapor" " simplesmente": tactic => contraposeTac false
 
-elab "We " " push the negation " l:(location)? new:(becomesEN)? : tactic => do
+elab "Podemos " " pushar a negação " l:(location)? new:(becomesEN)? : tactic => do
   pushNegTac (l.map expandLocation) (new.map extractBecomes)
 
 implement_endpoint (lang := en) rwResultWithoutGoal : CoreM String :=
@@ -79,7 +79,7 @@ implement_endpoint (lang := en) cannotContrapose : CoreM String :=
 pure "Cannot contrapose: the main goal is not an implication."
 
 example (P Q : Prop) (h : P ∨ Q) : True := by
-  We proceed using h
+  Poemos proceder usando h
   . intro _hP
     trivial
   . intro _hQ
@@ -87,7 +87,7 @@ example (P Q : Prop) (h : P ∨ Q) : True := by
 
 
 example (P : Prop) : True := by
-  We proceed depending on P
+  Podemos proceder dependendo de P
   . intro _hP
     trivial
   . intro _hnP
@@ -103,17 +103,17 @@ has type
   Q : Prop
 but is expected to have type
   R : Prop"
-    We conclude by hRP applied to hQ
-  We conclude by hRP applied to hR
+    Podemos concluir por hRP applied to hQ
+  Podemos concluir por hRP applied to hR
 
 example (P : ℕ → Prop) (h : ∀ n, P n) : P 0 := by
-  We conclude by h applied to _
+  Podemos concluir por h applied to _
 
 example (P : ℕ → Prop) (h : ∀ n, P n) : P 0 := by
-  We conclude by h
+  Podemos concluir por h
 
 example {a b : ℕ}: a + b = b + a := by
-  We compute
+  Podemos computar
 
 example {a b : ℕ} (h : a + b - a = 0) : b = 0 := by
   We compute at h

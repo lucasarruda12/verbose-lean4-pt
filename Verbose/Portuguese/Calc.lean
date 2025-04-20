@@ -1,7 +1,7 @@
 import Verbose.Tactics.Calc
-import Verbose.English.Common
-import Verbose.English.We
-import Verbose.English.By
+import Verbose.Portuguese.Common
+import Verbose.Portuguese.We
+import Verbose.Portuguese.By
 
 section widget
 
