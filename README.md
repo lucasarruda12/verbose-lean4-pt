@@ -28,3 +28,5 @@ de to do: terminar esse README
 | Wdigets.lean          |  |
 
 - Algumas syntaxes sujam o contexto do Lean. Então, como eu preciso do `e` pra bastante coisa relacionada às táticas, eu acabo perdendo a possiblidade de nomear minhas variáveis `e : Expr`, por exemplo. Acho que isso não é um problema no inglês, mas achei bem chato no portguês. seria legal encontrar uma forma de resolver :(.
+
+- Also, como o Verbose Lean ainda está sendo updateado com muita frequência, eu tô tentando ir atualizando as traduções e verificando diferenças entre versões. Se esse repositório estiver muito atrás do original, é por conta disso.
